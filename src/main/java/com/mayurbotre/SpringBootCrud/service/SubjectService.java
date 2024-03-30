@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mayurbotre.SpringBootCrud.bean.Subject;
+import com.mayurbotre.SpringBootCrud.exception.EmptyInputException;
 import com.mayurbotre.SpringBootCrud.repository.SubjectRepository;
 
 @Service
@@ -26,6 +27,9 @@ public class SubjectService {
 	}
 	
 	public void addSubject(Subject subject) {
+		if(subject.getName().isEmpty() || subject.getName().length()==0) {
+			throw new EmptyInputException("601", "Input fields are empty");
+		}
 		subjectRepository.save(subject);
 	}
 	
